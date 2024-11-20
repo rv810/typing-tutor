@@ -1,35 +1,27 @@
 #include <stdio.h>
-#include <unistd.h> 
+#include <unistd.h>
 
 void progress_bar(int completed, int total) {
-    int bar_width = 70; 
+    int bar_width = 70;
     int progress = (completed * bar_width) / total;
 
     printf("[");
     for (int i = 0; i < bar_width; ++i) {
         if (i < progress) {
-            printf("#"); 
+            printf("#");
         } else {
-            printf(" "); 
+            printf(" ");
         }
     }
     printf("] %d%%\r", (completed * 100) / total);
-    fflush(stdout); 
+    fflush(stdout);
 }
 
-void countdown_timer(int seconds) {
-    for (int elapsed = 0; elapsed <= seconds; ++elapsed) {
-        progress_bar(elapsed, seconds);
+void prog_level(int levels) {
+    int total_steps = levels * 1; 
+    for (int step = 0; step <= total_steps; ++step) {
+        progress_bar(step, total_steps);
         sleep(1); 
     }
+    printf("\n"); 
 }
-
-int main() {
-    
-    int predefined_seconds = 10; //change this to level, time, etc. (i think level for us)
-    
-    countdown_timer(predefined_seconds);
-
-    return 0;
-}
-
