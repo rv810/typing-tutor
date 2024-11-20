@@ -15,13 +15,7 @@ void progress_bar(int completed, int total) {
     }
     printf("] %d%%\r", (completed * 100) / total);
     fflush(stdout);
-}
-
-void prog_level(int levels) {
-    int total_steps = levels * 1; 
-    for (int step = 0; step <= total_steps; ++step) {
-        progress_bar(step, total_steps);
-        sleep(1); 
-    }
     printf("\n"); 
 }
+
+
