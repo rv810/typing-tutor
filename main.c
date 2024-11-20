@@ -3,5 +3,5 @@
 #include "type.h"
 
 int main (){
-
+	startPlay();
 }
