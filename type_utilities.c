@@ -2,6 +2,25 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+#include <stdbool.h>
+
+bool level (int level);
+char *generateSentence(int level, int sentence);
+float checkAccuracy (char * s);
+
+bool level (int level){
+	float accuracy, time_elapsed;
+	time_t start, end;
+	for (int i = 1; i <=5; i++){
+		char *s = generateSentence(level,i);
+		time(&start);
+		float accuracy = checkAccuracy(s);
+		time(&end);
+		float time_elapsed = (float)difftime(end, start);
+	}
+	printf("time:%.4f, accuracy:%.2f\n",time_elapsed, accuracy);
+	return true;
+}
 
 char *generateSentence(int level, int sentence) {
         int numLines = 7;
@@ -76,8 +95,6 @@ float checkAccuracy (char * s){
     }
 
     float accuracy = correct_letters/(float)total_letters;
-
-    printf("%i %i\n", correct_letters, total_letters);
 
     return accuracy;
 }
