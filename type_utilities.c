@@ -4,6 +4,7 @@
 #include <string.h>
 #include <stdbool.h>
 
+#define SENTENCES 3
 #define LEVELS 5
 
 bool level (int level);
@@ -74,25 +75,24 @@ bool isPass(int level, float level_score) {
 bool level (int level){
 	float accuracy, time_elapsed;
 	time_t start, end;
-        float sentence_scores[LEVELS];
+    float sentence_scores[LEVELS];
 
-        if (sentence_scores == NULL) {
-                printf("Memory allocation failed.\n");
-                return 1;
-        }
+    if (sentence_scores == NULL) {
+    	printf("Memory allocation failed.\n");
+        return false;
+    }
 
-	for (int i = 1; i <=LEVELS; i++){
-		char *s = generateSentence(level,i);
+	for (int i = 1; i <=SENTENCES; i++){
+		char * s =generateSentence(level, i);
 		time(&start);
 		float accuracy = checkAccuracy(s);
 		time(&end);
 		float time_elapsed = (float)difftime(end, start);
-                sentence_scores[i-1] = sentenceScore(accuracy, time_elapsed);
+        sentence_scores[i-1] = sentenceScore(accuracy, time_elapsed);
 	}
-	printf("time:%.4f, accuracy:%.2f\n",time_elapsed, accuracy);
-        float level_score = levelScore(sentence_scores, LEVELS);
-        bool is_pass = isPass(level, level_score);
-	return true;
+    float level_score = levelScore(sentence_scores, LEVELS);
+    bool is_pass = isPass(level, level_score);
+	return is_pass;
 }
 
 char *generateSentence(int level, int sentence) {
@@ -154,7 +154,7 @@ float checkAccuracy (char * s){
     printf("Please type sentence here: ");
 
     //finding length of string
-       while (s[total_letters] != '\0'){
+    while (s[total_letters] != '\0'){
         total_letters +=1;
     }
 
