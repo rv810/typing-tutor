@@ -4,6 +4,8 @@
 #include <string.h>
 #include <stdbool.h>
 
+#define LEVELS 5
+
 bool level (int level);
 char *generateSentence(int level, int sentence);
 float checkAccuracy (char * s);
@@ -11,12 +13,13 @@ float checkAccuracy (char * s);
 bool level (int level){
 	float accuracy, time_elapsed;
 	time_t start, end;
-	for (int i = 1; i <=5; i++){
+	for (int i = 1; i <=LEVELS; i++){
 		char *s = generateSentence(level,i);
 		time(&start);
 		float accuracy = checkAccuracy(s);
 		time(&end);
 		float time_elapsed = (float)difftime(end, start);
+
 	}
 	printf("time:%.4f, accuracy:%.2f\n",time_elapsed, accuracy);
 	return true;
