@@ -53,3 +53,32 @@ char *generateSentence(int level, int sentence) {
         return s;
 }
 
+
+float checkAccuracy (char * s){
+    char letter;
+    int index = 0; //index when comparing iputted string to expected string
+    int correct_letters = 0; // total number of CORRECT letters the user typed
+    int total_letters = 0; //length of string the user is supposed to type
+    printf("Please type sentence here: ");
+
+    //finding length of string
+       while (s[total_letters] != '\0'){
+        total_letters +=1;
+    }
+
+    while (index<total_letters && letter != '\n'){
+        scanf("%c", &letter);
+
+        if (letter == s[index]){
+                correct_letters +=1;
+                index +=1;
+        }
+    }
+
+    float accuracy = correct_letters/(float)total_letters;
+
+    printf("%i %i\n", correct_letters, total_letters);
+
+    return accuracy;
+}
+
