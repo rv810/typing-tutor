@@ -120,9 +120,8 @@ All tasks must be completed and integrated into a working prototype by this date
 
 ## **How to Run the Program**
 1. Clone the repository:
-   ```bash
+2. 
    git clone https://github.com/Team16/KeyboardWarrior.git
-   cd KeyboardWarrior
 
    Build the program using the provided build file:
 make
