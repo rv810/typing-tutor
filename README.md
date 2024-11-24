@@ -135,7 +135,7 @@ Use the --help flag to view usage instructions:
 ./keyboard_warrior --help
 
 ## **Future Enhancements**
-Add data persistence to save user progress between sessions.
-Implement WPM calculation to provide feedback on typing speed.
-Improve sentence difficulty scaling for advanced levels.
-Integrate sound effects or animations for a more engaging experience.
+- Add data persistence to save user progress between sessions.
+- Implement WPM calculation to provide feedback on typing speed.
+- Improve sentence difficulty scaling for advanced levels.
+- Integrate sound effects or animations for a more engaging experience.
