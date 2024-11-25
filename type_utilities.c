@@ -12,7 +12,7 @@ char *generateSentence(int level, int sentence);
 float checkAccuracy (char * s);
 
 float sentenceScore (float accuracy, float time) {
-        return accuracy + 1/time;
+        return accuracy + (1 / time);
 }
 
 float levelScore (float scores[], int size) {
@@ -75,24 +75,26 @@ bool isPass(int level, float level_score) {
 bool level (int level){
 	float accuracy, time_elapsed;
 	time_t start, end;
-    float sentence_scores[LEVELS];
+	float sentence_scores[LEVELS];
 
-    if (sentence_scores == NULL) {
-    	printf("Memory allocation failed.\n");
-        return false;
-    }
+    	if (sentence_scores == NULL) {
+    		printf("Memory allocation failed.\n");
+        	return false;
+    	}
 
-	for (int i = 1; i <=SENTENCES; i++){
-		char * s =generateSentence(level, i);
+	for (int i = 1; i <= SENTENCES; i++){
+		char *s = generateSentence(level, i);
 		time(&start);
 		float accuracy = checkAccuracy(s);
 		time(&end);
 		float time_elapsed = (float)difftime(end, start);
-        sentence_scores[i-1] = sentenceScore(accuracy, time_elapsed);
+        	sentence_scores[i - 1] = sentenceScore(accuracy, time_elapsed);
+		free(s);
 	}
-    float level_score = levelScore(sentence_scores, LEVELS);
-    bool is_pass = isPass(level, level_score);
-	return is_pass;
+
+	float level_score = levelScore(sentence_scores, LEVELS);
+        bool is_pass = isPass(level, level_score);
+        return is_pass;
 }
 
 char *generateSentence(int level, int sentence) {
@@ -110,7 +112,7 @@ char *generateSentence(int level, int sentence) {
                 file = fopen("level5.txt", "r");
         }
 
-        char line[50][10000];
+        char line[100][10000];
         int count = 0;
 
         while (fgets(line[count], sizeof(line[0]), file) != NULL) {
@@ -147,28 +149,28 @@ char *generateSentence(int level, int sentence) {
 
 
 float checkAccuracy (char * s){
-    char letter;
-    int index = 0; //index when comparing iputted string to expected string
-    int correct_letters = 0; // total number of CORRECT letters the user typed
-    int total_letters = 0; //length of string the user is supposed to type
-    printf("Please type sentence here: ");
+	char letter = '\0';
+    	int index = 0; //index when comparing iputted string to expected string
+    	int correct_letters = 0; // total number of CORRECT letters the user typed
+    	int total_letters = 0; //length of string the user is supposed to type
+    	printf("Please type sentence here: ");
 
-    //finding length of string
-    while (s[total_letters] != '\0'){
-        total_letters +=1;
-    }
+    	//finding length of string
+    	while (s[total_letters] != '\0'){
+        	total_letters +=1;
+    	}
 
-    while (index<total_letters && letter != '\n'){
-        scanf("%c", &letter);
+    	while (index<total_letters && letter != '\n'){
+        	scanf("%c", &letter);
 
-        if (letter == s[index]){
-                correct_letters +=1;
-                index +=1;
-        }
-    }
+        	if (letter == s[index]){
+                	correct_letters +=1;
+                	index +=1;
+       	 	}
+    	}
 
-    float accuracy = correct_letters/(float)total_letters;
+    	float accuracy = correct_letters/(float)total_letters;
 
-    return accuracy;
+    	return accuracy;
 }
 
