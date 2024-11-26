@@ -14,7 +14,14 @@ float checkAccuracy (char * s);
 float sentenceScore (float accuracy, float time) {
         float accuracy_weight = 0.8;
         float time_weight = 0.2;
-        return (accuracy_weight * accuracy) + (time_weight * (1 / time));
+if (time <= 0) {
+        return 0; 
+    }
+    if (accuracy == 0) {
+        return 0;
+    }
+
+    return (accuracy_weight * accuracy) + (time_weight * (1 / time));
 }
 
 float levelScore (float scores[], int size) {
