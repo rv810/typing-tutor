@@ -12,7 +12,9 @@ char *generateSentence(int level, int sentence);
 float checkAccuracy (char * s);
 
 float sentenceScore (float accuracy, float time) {
-        return accuracy + (1 / time);
+        float accuracy_weight = 0.8;
+        float time_weight = 0.2;
+        return (accuracy_weight * accuracy) + (time_weight * (1 / time));
 }
 
 float levelScore (float scores[], int size) {
@@ -27,46 +29,46 @@ float levelScore (float scores[], int size) {
 bool isPass(int level, float level_score) {
         if (level == 1) {
                 if (level_score >= 50) {
-                        printf("Congratulations you passed the level!");
+                        printf("Congratulations you passed the level!\n");
                         return true;
                 } else {
-                        printf("Sorry you didn't pass the level. \n Your score: %f\n Score needed: 50%%\n", level_score);
+                        printf("Sorry you didn't pass the level.\nYour score: %.2f%%\nScore needed: 50%%\n", level_score);
                         return false;
                 }
         }
         if (level == 2) {
                 if (level_score >= 60) {
-                        printf("Congratulations you passed the level!");
+                        printf("Congratulations you passed the level!\n");
                         return true;
                 } else {
-                        printf("Sorry you didn't pass the level. \n Your score: %f\n Score needed: 60%%\n", level_score);
+                        printf("Sorry you didn't pass the level.\nYour score: %.2f%%\nScore needed: 60%%\n", level_score);
                         return false;
                 }
         }
         if (level == 3) {
                 if (level_score >= 70) {
-                        printf("Congratulations you passed the level!");
+                        printf("Congratulations you passed the level!\n");
                         return true;
                 } else {
-                        printf("Sorry you didn't pass the level. \n Your score: %f\n Score needed: 70%%\n", level_score);
+                        printf("Sorry you didn't pass the level.\nYour score: %.2f%%\nScore needed: 70%%\n", level_score);
                         return false;
                 }
         }
         if (level == 4) {
                 if (level_score >= 80) {
-                        printf("Congratulations you passed the level!");
+                        printf("Congratulations you passed the level!\n");
                         return true;
                 } else {
-                        printf("Sorry you didn't pass the level. \n Your score: %f\n Score needed: 80%%\n", level_score);
+                        printf("Sorry you didn't pass the level.\nYour score: %.2f%%\nScore needed: 80%%\n", level_score);
                         return false;
                 }
         }
         if (level == 5) {
                 if (level_score >= 90) {
-                        printf("Congratulations you passed the level!");
+                        printf("Congratulations you passed the level!\n");
                         return true;
                 } else {
-                        printf("Sorry you didn't pass the level. \n Your score: %f\n Score needed: 90%%\n", level_score);
+                        printf("Sorry you didn't pass the level.\nYour score: %.2f%%\nScore needed: 90%%\n", level_score);
                         return false;
                 }
         }
@@ -75,7 +77,7 @@ bool isPass(int level, float level_score) {
 bool level (int level){
 	float accuracy, time_elapsed;
 	time_t start, end;
-	float sentence_scores[LEVELS];
+	float sentence_scores[SENTENCES];
 
     	if (sentence_scores == NULL) {
     		printf("Memory allocation failed.\n");
@@ -88,11 +90,13 @@ bool level (int level){
 		float accuracy = checkAccuracy(s);
 		time(&end);
 		float time_elapsed = (float)difftime(end, start);
+                printf("accuracy: %f\n", accuracy);
+                printf("time: %f\n", time_elapsed);
         	sentence_scores[i - 1] = sentenceScore(accuracy, time_elapsed);
 		free(s);
 	}
 
-	float level_score = levelScore(sentence_scores, LEVELS);
+	float level_score = levelScore(sentence_scores, SENTENCES);
         bool is_pass = isPass(level, level_score);
         return is_pass;
 }
