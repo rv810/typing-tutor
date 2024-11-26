@@ -14,14 +14,14 @@ float checkAccuracy (char * s);
 float sentenceScore (float accuracy, float time) {
         float accuracy_weight = 0.8;
         float time_weight = 0.2;
-if (time <= 0) {
-        return 0; 
-    }
-    if (accuracy == 0) {
-        return 0;
-    }
+	if (time <= 0) {
+        	return 0; 
+    	}
+    	if (accuracy == 0) {
+        	return 0;
+    	}
 
-    return (accuracy_weight * accuracy) + (time_weight * (1 / time));
+    	return (accuracy_weight * accuracy) + (time_weight * (1 / time));
 }
 
 float levelScore (float scores[], int size) {
@@ -44,6 +44,15 @@ bool isPass(int level, float level_score) {
                 }
         }
         if (level == 2) {
+                if (level_score >= 55) {
+                        printf("Congratulations you passed the level!\n");
+                        return true;
+                } else {
+                        printf("Sorry you didn't pass the level.\nYour score: %.2f%%\nScore needed: 55%%\n", level_score);
+                        return false;
+                }
+        }
+        if (level == 3) {
                 if (level_score >= 60) {
                         printf("Congratulations you passed the level!\n");
                         return true;
@@ -52,7 +61,7 @@ bool isPass(int level, float level_score) {
                         return false;
                 }
         }
-        if (level == 3) {
+        if (level == 4) {
                 if (level_score >= 70) {
                         printf("Congratulations you passed the level!\n");
                         return true;
@@ -61,21 +70,12 @@ bool isPass(int level, float level_score) {
                         return false;
                 }
         }
-        if (level == 4) {
+        if (level == 5) {
                 if (level_score >= 80) {
                         printf("Congratulations you passed the level!\n");
                         return true;
                 } else {
                         printf("Sorry you didn't pass the level.\nYour score: %.2f%%\nScore needed: 80%%\n", level_score);
-                        return false;
-                }
-        }
-        if (level == 5) {
-                if (level_score >= 90) {
-                        printf("Congratulations you passed the level!\n");
-                        return true;
-                } else {
-                        printf("Sorry you didn't pass the level.\nYour score: %.2f%%\nScore needed: 90%%\n", level_score);
                         return false;
                 }
         }
@@ -94,11 +94,11 @@ bool level (int level){
 	for (int i = 1; i <= SENTENCES; i++){
 		char *s = generateSentence(level, i);
 		time(&start);
-		float accuracy = checkAccuracy(s);
+		float accuracy = checkAccuracy(s) * 100;
 		time(&end);
 		float time_elapsed = (float)difftime(end, start);
-                printf("accuracy: %f\n", accuracy);
-                printf("time: %f\n", time_elapsed);
+                printf("accuracy: %f%%\n", accuracy);
+                printf("time: %fs\n", time_elapsed);
         	sentence_scores[i - 1] = sentenceScore(accuracy, time_elapsed);
 		free(s);
 	}
