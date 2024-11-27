@@ -6,7 +6,8 @@
 
 #define SENTENCES 3
 #define LEVELS 5
-
+#define BASE_SCORE 50
+#define DEBUG 0
 bool level (int level);
 char *generateSentence(int level, int sentence);
 float checkAccuracy (char * s);
@@ -14,11 +15,8 @@ float checkAccuracy (char * s);
 float sentenceScore (float accuracy, float time) {
         float accuracy_weight = 0.8;
         float time_weight = 0.2;
-	if (time <= 0) {
+		if (time <= 0) {
         	return 0; 
-    	}
-    	if (accuracy == 0) {
-        	return 0;
     	}
 
     	return (accuracy_weight * accuracy) + (time_weight * (1 / time));
@@ -34,50 +32,13 @@ float levelScore (float scores[], int size) {
 }
 
 bool isPass(int level, float level_score) {
-        if (level == 1) {
-                if (level_score >= 50) {
-                        printf("Congratulations you passed the level!\n");
-                        return true;
-                } else {
-                        printf("Sorry you didn't pass the level.\nYour score: %.2f%%\nScore needed: 50%%\n", level_score);
-                        return false;
-                }
-        }
-        if (level == 2) {
-                if (level_score >= 55) {
-                        printf("Congratulations you passed the level!\n");
-                        return true;
-                } else {
-                        printf("Sorry you didn't pass the level.\nYour score: %.2f%%\nScore needed: 55%%\n", level_score);
-                        return false;
-                }
-        }
-        if (level == 3) {
-                if (level_score >= 60) {
-                        printf("Congratulations you passed the level!\n");
-                        return true;
-                } else {
-                        printf("Sorry you didn't pass the level.\nYour score: %.2f%%\nScore needed: 60%%\n", level_score);
-                        return false;
-                }
-        }
-        if (level == 4) {
-                if (level_score >= 70) {
-                        printf("Congratulations you passed the level!\n");
-                        return true;
-                } else {
-                        printf("Sorry you didn't pass the level.\nYour score: %.2f%%\nScore needed: 70%%\n", level_score);
-                        return false;
-                }
-        }
-        if (level == 5) {
-                if (level_score >= 80) {
-                        printf("Congratulations you passed the level!\n");
-                        return true;
-                } else {
-                        printf("Sorry you didn't pass the level.\nYour score: %.2f%%\nScore needed: 80%%\n", level_score);
-                        return false;
-                }
+        int score_required = BASE_SCORE+(5*(level-1));
+		if (level_score >= score_required) {
+                printf("\nCongratulations you passed the level!\n\n");
+                return true;
+		} else {
+			printf("\nSorry you didn't pass the level.\nYour score: %.2f%%\nScore needed: %i%%\n\n", level_score, score_required);
+			return false;
         }
 }
 
@@ -86,20 +47,23 @@ bool level (int level){
 	time_t start, end;
 	float sentence_scores[SENTENCES];
 
-    	if (sentence_scores == NULL) {
-    		printf("Memory allocation failed.\n");
-        	return false;
-    	}
+   	if (sentence_scores == NULL) {
+   		printf("Memory allocation failed.\n");
+       	return false;
+   	}
 
 	for (int i = 1; i <= SENTENCES; i++){
 		char *s = generateSentence(level, i);
 		time(&start);
-		float accuracy = checkAccuracy(s) * 100;
+		accuracy = checkAccuracy(s);
 		time(&end);
-		float time_elapsed = (float)difftime(end, start);
-                printf("accuracy: %f%%\n", accuracy);
-                printf("time: %fs\n", time_elapsed);
-        	sentence_scores[i - 1] = sentenceScore(accuracy, time_elapsed);
+		time_elapsed = (float)difftime(end, start);
+                
+		if (DEBUG == 1){
+			printf("accuracy: %f%%\n", accuracy);
+			printf("time: %fs\n", time_elapsed);
+        }
+		sentence_scores[i - 1] = sentenceScore(accuracy, time_elapsed);
 		free(s);
 	}
 
@@ -139,12 +103,11 @@ char *generateSentence(int level, int sentence) {
         }
         s[0] = '\0';
 
-	printf("Level %d: Sentence: %d: ", level, sentence);
+	printf("Level %d, Sentence: %d: ", level, sentence);
 
         for (int i = 0; i < numLines; i++) {
                 int randomLine = rand() % count;
                 char *word = line[randomLine];
-                printf("%s ", word);
                 int new_characters = strlen(word) + 1;
                 current_characters += new_characters;
                 s = realloc(s, sizeof(char)*(current_characters));
@@ -152,38 +115,46 @@ char *generateSentence(int level, int sentence) {
                         return NULL;
                 }
                 strcat(s, word);
-                if(i != (numLines-1)){
+                if(i != numLines-1){
 					strcat(s, " ");
 				}
+				else{
+					strcat(s, ".");
+				}	
         }
-        printf("\n");
+		printf("%s\n", s);
         return s;
 }
 
 
 float checkAccuracy (char * s){
-	char letter = '\0';
-    	int index = 0; //index when comparing iputted string to expected string
-    	int correct_letters = 0; // total number of CORRECT letters the user typed
-    	int total_letters = 0; //length of string the user is supposed to type
-    	printf("Please type sentence here: ");
+	char letter = 'a';
+	char temp = 'a';
+	int index = 0; //index when comparing iputted string to expected string
+    int correct_letters = 0; // total number of CORRECT letters the user typed
+    int total_letters = 0; //length of string the user is supposed to type
+    printf("Please type sentence here: ");
 
-    	//finding length of string
-    	while (s[total_letters] != '\0'){
-        	total_letters +=1;
-    	}
+		//finding length of string
+    while (s[total_letters] != '\0'){
+       	total_letters +=1;
+    }
 
-    	while (index<total_letters && letter != '\n'){
-        	scanf("%c", &letter);
+    while (index<total_letters){
+		scanf("%c", &letter);
+		if (letter == '.'){
+			correct_letters +=1;
+			break;
+		}
 
-        	if (letter == s[index]){
-                	correct_letters +=1;
-                	index +=1;
-       	 	}
-    	}
+		if (letter == s[index]){
+    		correct_letters +=1;
+            index +=1;
+		}
+    }
 
-    	float accuracy = correct_letters/(float)total_letters;
+    float accuracy = correct_letters/(float)total_letters;
 
-    	return accuracy;
+    return accuracy;
 }
 
