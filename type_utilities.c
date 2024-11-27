@@ -12,6 +12,35 @@ bool level (int level);
 char *generateSentence(int level, int sentence);
 float checkAccuracy (char * s);
 
+void help() {
+    printf("KEYBOARD WARRIOR (Version v1.0.0)\n\n");
+    printf("Usage: type \n\n");
+
+    printf("Description:\n");
+    printf("  Keyboard Warrior is a typing tutor designed for kids to improve their typing skills.\n");
+    printf("  The program includes multiple levels, tracks accuracy and typing speed, and provides\n");
+    printf("  feedback to indicate whether the user passed or failed a level.\n\n");
+
+    printf("Arguments:\n");
+    printf("  None\n\n");
+    
+    printf("Flags:\n");
+    printf("  --help                Display this help message and exit.\n\n");
+
+    printf("Pass Criteria:\n");
+    printf("  Level 1: 50%%\n");
+    printf("  Level 2: 55%%\n");
+    printf("  Level 3: 60%%\n");
+    printf("  Level 4: 70%%\n");
+    printf("  Level 5: 80%%\n\n");
+
+    printf("Examples:\n");
+    printf("  type \n");
+    printf("    Start the program from Level 1.\n\n");
+    printf("  type --help\n");
+    printf("    Display this help message.\n\n");
+}
+
 float sentenceScore (float accuracy, float time) {
         float accuracy_weight = 0.8;
         float time_weight = 0.2;
