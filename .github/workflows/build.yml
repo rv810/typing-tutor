@@ -1,0 +1,25 @@
+name: build script for typing tutor
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: build main
+        run: make
+
+      - name: build ctest
+        run: make ctest; gcov ctest-type_utilities.c; gcov ctest-startPlay.c; gcov ctest-main.c; gcov ctest-progBAr.c
+
+      - name: upload gcov reports and executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: type executable
+          path: |
+            ./type
+            *.gcov
