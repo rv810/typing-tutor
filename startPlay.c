@@ -5,7 +5,7 @@
 #include "type.h"
 #define LEVELS 5
 
-void startPlay(){
+void startPlay(int argc, char *argv[]){
 	int current_level = 1;
 
 	if (argc == 2) {
