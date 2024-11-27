@@ -31,8 +31,8 @@ void help() {
     printf("  Level 1: 50%%\n");
     printf("  Level 2: 55%%\n");
     printf("  Level 3: 60%%\n");
-    printf("  Level 4: 70%%\n");
-    printf("  Level 5: 80%%\n\n");
+    printf("  Level 4: 65%%\n");
+    printf("  Level 5: 70%%\n\n");
 
     printf("Examples:\n");
     printf("  type \n");
