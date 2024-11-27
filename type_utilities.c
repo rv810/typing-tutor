@@ -152,7 +152,9 @@ char *generateSentence(int level, int sentence) {
                         return NULL;
                 }
                 strcat(s, word);
-                strcat(s, " ");
+                if(i != (numLines-1)){
+					strcat(s, " ");
+				}
         }
         printf("\n");
         return s;
