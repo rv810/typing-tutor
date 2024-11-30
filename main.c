@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "type.h"
 
-int main (){
-	startPlay();
+int main(int argc, char *argv[]) {
+    startPlay(argc, argv);
+    return 0;
 }
