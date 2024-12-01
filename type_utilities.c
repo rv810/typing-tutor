@@ -104,9 +104,21 @@ bool level (int level){
         return is_pass;
 }
 
+/* generateSentence
+ *
+ * Parameters:
+ * - level: represents the current level
+ * - sentence: represents the current sentence
+ *
+ * Description: Generates random sentences from words brought in
+ * 		through text files based on the current level. It
+ * 		returns the randomly generated sentence and prints
+ * 		it to standard output. 
+ */
 char *generateSentence(int level, int sentence) {
-        int numLines = 7;
-        FILE *file;
+        int numLines = 7; // number of words that are in each sentence
+        // reads words from different text files depending on the current level
+	FILE *file;
         if (level == 1) {
                 file = fopen("level1.txt", "r");
         } else if (level == 2) {
@@ -119,42 +131,41 @@ char *generateSentence(int level, int sentence) {
                 file = fopen("level5.txt", "r");
         }
 
-        char line[WORDS][CHARACTERS];
-        int count = 0;
+        char line[WORDS][CHARACTERS]; // array stores lines read from the file
+        int count = 0; // counts the number of lines read
 
-        while (fgets(line[count], sizeof(line[0]), file) != NULL) {
+        while (fgets(line[count], sizeof(line[0]), file) != NULL) { // reads words in the file in the line array and replaces the newline character with a null terminator
                 line[count][strcspn(line[count], "\n")] = '\0';
                 count++;
         }
 
         fclose(file);
-        int current_characters = 1;
+        int current_characters = 1; // tracks characters for memory allocation with 1 for null terminator
         char *s = malloc(sizeof(char)*current_characters);
         if (s == NULL) {
                 return NULL;
         }
-        s[0] = '\0';
+        s[0] = '\0'; // initialize as an empty string
 
 	printf("Level %d, Sentence: %d: ", level, sentence);
 
-        for (int i = 0; i < numLines; i++) {
+        for (int i = 0; i < numLines; i++) { // loop to generate a sentence with random words
                 int randomLine = rand() % count;
                 char *word = line[randomLine];
                 int new_characters = strlen(word) + 1;
                 current_characters += new_characters;
-                s = realloc(s, sizeof(char)*(current_characters));
+                s = realloc(s, sizeof(char)*(current_characters)); // reallocates memory for the new word
                 if (s == NULL) {
                         return NULL;
                 }
-                strcat(s, word);
-                if(i != numLines-1){
-					strcat(s, " ");
-				}
-				else{
-					strcat(s, ".");
-				}	
+                strcat(s, word); // appends the word to the sentence
+                if(i != numLines-1){ // appends a space between each word until the end of the sentence
+			strcat(s, " ");
+		} else {
+			strcat(s, ".");
+		}	
         }
-		printf("%s\n", s);
+	printf("%s\n", s);
         return s;
 }
 
