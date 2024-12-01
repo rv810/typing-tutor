@@ -4,10 +4,13 @@
 #include <string.h>
 #include <stdbool.h>
 
+#define WORDS 100
+#define CHARACTERS 1000
 #define SENTENCES 3
 #define LEVELS 5
 #define BASE_SCORE 50
 #define DEBUG 0
+
 bool level (int level);
 char *generateSentence(int level, int sentence);
 float checkAccuracy (char * s);
@@ -116,7 +119,7 @@ char *generateSentence(int level, int sentence) {
                 file = fopen("level5.txt", "r");
         }
 
-        char line[100][10000];
+        char line[WORDS][CHARACTERS];
         int count = 0;
 
         while (fgets(line[count], sizeof(line[0]), file) != NULL) {
