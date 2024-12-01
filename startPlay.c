@@ -18,7 +18,20 @@ void displayLevelArt(int level) {
     printf("\n");
 }
 
+void drawHand(){
 
+printf("     .--.                   .--. \n");
+printf("   __|  |__               __|  |__\n");
+printf("  |  |  |  |             |  |  |  |\n");
+printf(" _|  |  |  |             |  |  |  |_\n");
+printf("| |  |  |  |  __    __   |  |  |  | |\n");
+printf("| |  |  |  | /  /  \\  \\  |  |  |  | |\n");
+printf("| -     -  |/  /    \\  \\ |  -     - |\n");
+printf("|          |  /      \\  \\|          |\n");
+printf("|             |      |              |\n");
+printf("|            /        \\             |\n");
+printf(" \\__________/          \\___________/\n");
+}
 void startPlay(int argc, char *argv[]) {
     int current_level = 1;
 
@@ -31,7 +44,8 @@ void startPlay(int argc, char *argv[]) {
 
     while (current_level <= LEVELS) {
         displayLevelArt(current_level);
-        if (level(current_level)) {
+        drawHand();
+		if (level(current_level)) {
             progress_bar(current_level, LEVELS);
             current_level += 1;
         }
