@@ -38,8 +38,10 @@ printf("|             |      |              |\n");
 printf("|            /        \\             |\n");
 printf(" \\__________/          \\___________/\n");
 }
+
 void startPlay(int argc, char *argv[]) {
     int current_level = 1;
+    char continue_play;
 
     if (argc == 2) {
         if (strcmp(argv[1], "--help") == 0) {
@@ -54,6 +56,14 @@ void startPlay(int argc, char *argv[]) {
 		if (level(current_level)) {
             progress_bar(current_level, LEVELS);
             current_level += 1;
+        }
+
+        printf("\nWould you like to continue playing (Y/N)? ");
+        scanf(" %c", &continue_play);
+
+        if (continue_play == 'N' || continue_play == 'n') {
+            printf("See you later!\n\n");
+            exit(0);
         }
     }
 }

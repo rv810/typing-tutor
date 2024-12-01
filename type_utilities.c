@@ -147,7 +147,7 @@ char *generateSentence(int level, int sentence) {
         }
         s[0] = '\0'; // initialize as an empty string
 
-	printf("Level %d, Sentence: %d: ", level, sentence);
+	printf("\nLevel %d, Sentence: %d: ", level, sentence);
 
         for (int i = 0; i < numLines; i++) { // loop to generate a sentence with random words
                 int randomLine = rand() % count;
@@ -184,7 +184,7 @@ float checkAccuracy (char * s){
     }
 
     while (index<total_letters){
-		scanf("%c", &letter);
+		scanf(" %c", &letter);
 		if (letter == '.'){
 			correct_letters +=1;
 			break;
