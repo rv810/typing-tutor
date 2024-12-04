@@ -4,13 +4,6 @@
 #include "type.h"
 
 int main (int argc, char *argv[]){
-    if (argc == 2) {
-		if (strcmp(argv[1], "--help") == 0) {
-            help();
-            exit(0);
-        }
-	}
-    
     // Testing checkAccuracy
     // run "cat accuracy_correct.txt | ./ctest" OR "cat accuracy_incorrect.txt" to check
     char *s = "sample string";
@@ -46,6 +39,14 @@ int main (int argc, char *argv[]){
     printf("\nTest Case 2: Accuracy = 0.5, Time = 1.0\n");
     float score2 = sentenceScore(0.5, 1.0);
     printf("Expected: ~0.6, Actual: %.2f\n", score2);
+
+    //Testing help function
+    printf("\n--- Testing Help Functionality ---\n");
+    int help_status = help();
+    if (help_status != 0) {
+        printf("Help functionality failed!");
+    }
+    printf("Help functionality test successful!\n");
 
     return 0;
 }

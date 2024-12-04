@@ -22,8 +22,8 @@ float checkAccuracy (char * s);
  *
  * Description: Displays the help message for the program.
  */
-void help() {
-    printf("KEYBOARD WARRIOR (Version v1.0.0)\n\n");
+int help() {
+    printf("\nKEYBOARD WARRIOR (Version v1.0.0)\n\n");
     printf("Usage: type \n\n");
 
     printf("Description:\n");
@@ -49,6 +49,12 @@ void help() {
     printf("    Start the program from Level 1.\n\n");
     printf("  type --help\n");
     printf("    Display this help message.\n\n");
+
+    printf("NOTE:\n");
+    printf("When typing sentences include a period at the end before clicking ENTER\n");
+    printf("in order to submit the sentence and move on to the next one.\n\n");
+
+    return 0;
 }
 
 /* sentenceScore
