@@ -121,18 +121,19 @@ All tasks must be completed and integrated into a working prototype by this date
 ## **How to Run the Program**
 1. Clone the repository:
 2. 
-   git clone https://github.com/Team16/KeyboardWarrior.git
+   git clone https://github.com/Sam-Scott-McMaster/the-team-assignment-team-16-the-algorithm-avengers.git
 
    Build the program using the provided build file:
+   
 make
 
 Run the program:
 
-./keyboard_warrior
+./type
 
 Use the --help flag to view usage instructions:
 
-./keyboard_warrior --help
+./type --help
 
 ## **Future Enhancements**
 - Add data persistence to save user progress between sessions.
