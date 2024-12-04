@@ -3,6 +3,18 @@
 #include <string.h>
 #include "type.h"
 
+/* main
+ *
+ * Parameters:
+ * - argc: the number of command-line arguments passed to the program
+ * - argv: an array of strings representing the command-line arguments
+ *
+ * Description: Tests various functions in the program, including `checkAccuracy`,
+ *              `progress_bar`, `sentenceScore`, and `help`. It verifies expected
+ *              and actual outputs, printing the results for validation.
+ *
+ * Return: 0 for successful execution.
+ */
 int main (int argc, char *argv[]){
     // Testing checkAccuracy
     // run "cat accuracy_correct.txt | ./ctest" OR "cat accuracy_incorrect.txt" to check

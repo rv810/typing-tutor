@@ -21,6 +21,8 @@ float checkAccuracy (char * s);
  * None
  *
  * Description: Displays the help message for the program.
+ *
+ * Return: 0 for successful execution.
  */
 int help() {
     printf("\nKEYBOARD WARRIOR (Version v1.0.0)\n\n");
@@ -64,9 +66,11 @@ int help() {
  * - time: represents the time taken to type current sentence
  *
  * Description: Calculates the users score for the current sentence
-                by taking a weightage of the accuracy and time (80% 
-                and 20% respectively). Uses 1/time so that score
-                decreases as time increases.
+ *               by taking a weightage of the accuracy and time (80% 
+ *               and 20% respectively). Uses 1/time so that score
+ *               decreases as time increases.
+ *
+ * Return: Users score for the current sentence
  */
 float sentenceScore (float accuracy, float time) {
         float accuracy_weight = 0.8;
@@ -85,8 +89,10 @@ float sentenceScore (float accuracy, float time) {
  * - size: represents the size of the scores array
  *
  * Description: Calculates the users score for the current level
-                by taking an average off all of their sentence scores
-                and converts the score to a percentage.
+ *                by taking an average off all of their sentence scores
+ *              and converts the score to a percentage.
+ *
+ * Return: percentage score for the user's current level
  */
 float levelScore (float scores[], int size) {
         float sum = 0.0;
@@ -97,6 +103,19 @@ float levelScore (float scores[], int size) {
         return percentage_score;
 }
 
+/* isPass
+ *
+ * Parameters:
+ * - level: the current level the user is attempting
+ * - level_score: the user's calculated score for the current level
+ *
+ * Description: Checks if the user has passed the current level by comparing
+ *              their level score to the required score. Prints a congratulatory
+ *              message if the user passes or a failure message with their score
+ *              and the required score if they do not pass.
+ *
+ * Return: true if the user passed the level, false otherwise.
+ */
 bool isPass(int level, float level_score) {
         int score_required = BASE_SCORE+(5*(level-1));
 		if (level_score >= score_required) {
@@ -108,6 +127,19 @@ bool isPass(int level, float level_score) {
         }
 }
 
+/* level
+ *
+ * Parameters:
+ * - level: the current level the user is playing
+ *
+ * Description: Handles the gameplay for a single level. Prompts the user to 
+ *              continue, generates sentences for them to type, calculates their
+ *              accuracy and time taken for each sentence, and stores these scores.
+ *              Determines if the user passes the level by calculating their 
+ *              overall level score and checking it against the required score.
+ *
+ * Return: true if the user passes the level, false otherwise
+ */
 bool level (int level){
 	float accuracy, time_elapsed;
 	time_t start, end;
@@ -117,6 +149,10 @@ bool level (int level){
    		printf("Memory allocation failed.\n");
        	return false;
    	}
+
+        char key;
+        printf("\nClick any key to continue when you are ready: ");
+        getchar();
 
 	for (int i = 1; i <= SENTENCES; i++){
 		char *s = generateSentence(level, i);
@@ -148,6 +184,8 @@ bool level (int level){
  * 		through text files based on the current level. It
  * 		returns the randomly generated sentence and prints
  * 		it to standard output. 
+ *
+ * Return: true if the user passes the level, false otherwise
  */
 char *generateSentence(int level, int sentence) {
         int numLines = 7; // number of words that are in each sentence
@@ -203,7 +241,18 @@ char *generateSentence(int level, int sentence) {
         return s;
 }
 
-
+/* checkAccuracy
+ *
+ * Parameters:
+ * - s: the expected sentence the user needs to type
+ *
+ * Description: Compares the user's input character by character to the expected 
+ *              sentence. Counts the number of correctly typed letters and calculates
+ *              the accuracy as a percentage of the total sentence length. The input
+ *              ends when the user types a period ('.').
+ *
+ * Return: A float representing the user's typing accuracy as a percentage.
+ */
 float checkAccuracy (char * s){
 	char letter = 'a';
 	char temp = 'a';
