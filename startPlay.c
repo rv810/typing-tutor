@@ -75,17 +75,32 @@ void drawHand(char h [8][MAX_KEYS_PER_FINGER]){
 void startPlay(int argc, char *argv[]) {
     int current_level = 1;
     char continue_play;
-
+	char keys[8][MAX_KEYS_PER_FINGER];
     if (argc == 2) {
         if (strcmp(argv[1], "--help") == 0) {
             int help_status = help();
             exit(0);
         }
     }
-	char test[8][MAX_KEYS_PER_FINGER] = {{'A','Q','Z','X', 'X', 'X'},{'S', 'W', 'X', 'X', 'X', 'X'},{'D', 'E', 'C', 'X', 'X', 'X'},{'F', 'G', 'R', 'T', 'V', 'B'},{'H', 'J', 'Y', 'U', 'N', 'M'},{'K', 'I', 'A', 'A', 'A' , 'A'},{'L', 'O', 'A', 'A', 'A', 'A'},{'P', 'A', 'A', 'A', 'A', 'A'}};
-    while (current_level <= LEVELS) {
+	if (current_level == 1){
+		char keys[8][MAX_KEYS_PER_FINGER] = {{'A',' ',' ',' ', ' ', ' '},{'S', ' ', ' ', ' ', ' ', ' '},{'D', ' ', ' ', ' ', ' ', ' '},{' ', ' ', ' ', ' ', ' ', ' '},{'J', ' ', ' ', ' ', ' ', ' '},{'K', ' ', ' ', ' ', ' ' , ' '},{'L', ' ', ' ', ' ', ' ', ' '},{' ', ' ', ' ', ' ', ' ', ' '}};
+	}
+	else if (current_level == 2){
+		char keys[8][MAX_KEYS_PER_FINGER] = {{'A',' ',' ',' ', ' ', ' '},{'S', ' ', ' ', ' ', ' ', ' '},{'D', ' ', 'C', ' ', ' ', ' '},{'R', 'T', ' ', ' ', ' ', ' '},{'J', 'Y', 'U', ' ', ' ', ' '},{'K', ' ', ' ', ' ', ' ' , ' '},{'L', ' ', ' ', ' ', ' ', ' '},{' ', ' ', ' ', ' ', ' ', ' '}};
+	}
+	else if (current_level == 3){
+		char keys[8][MAX_KEYS_PER_FINGER] = {{'A','Q',' ',' ', ' ', ' '},{'S', 'W', ' ', ' ', ' ', ' '},{'D', 'E', ' ', ' ', ' ', ' '},{'R', 'T', ' ', ' ', ' ', ' '},{'J', 'Y', 'U', ' ', ' ', ' '},{'K', 'I', ' ', ' ', ' ' , ' '},{'L', 'O', ' ', ' ', ' ', ' '},{'P', ' ', ' ', ' ', ' ', ' '}};
+	}
+	else if (current_level == 4){
+        char keys[8][MAX_KEYS_PER_FINGER] = {{'A','Q','Z',' ', ' ', ' '},{'S', 'W', 'X', ' ', ' ', ' '},{'D', 'E', ' ', ' ', ' ', ' '},{'R', 'T', ' ', ' ', ' ', ' '},{'J', 'Y', 'U', 'N', 'M', ' '},{'K', 'I', ' ', ' ', ' ' , ' '},{'L', 'O', ' ', ' ', ' ', ' '},{'P', ' ', ' ', ' ', ' ', ' '}};
+	}
+	else{
+		char keys[8][MAX_KEYS_PER_FINGER] = {{'A','Q','Z',' ', ' ', ' '},{'S', 'W', 'X', ' ', ' ', ' '},{'D', 'E', 'C', ' ', ' ', ' '},{'R', 'T', 'V', 'B', 'F', 'G'},{'J', 'Y', 'U', 'N', 'M', 'H'},{'K', 'I', ' ', ' ', ' ' , ' '},{'L', 'O', ' ', ' ', ' ', ' '},{'P', ' ', ' ', ' ', ' ', ' '}};
+	}
+
+	while (current_level <= LEVELS) {
         displayLevelArt(current_level);
-        drawHand(test);
+        drawHand(keys);
 
 		if (level(current_level)) {
             progress_bar(current_level, LEVELS);
