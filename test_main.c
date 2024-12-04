@@ -52,6 +52,25 @@ int main (int argc, char *argv[]){
     float score2 = sentenceScore(0.5, 1.0);
     printf("Expected: ~0.6, Actual: %.2f\n", score2);
 
+    printf("\n--- Testing Overall Level Score ---\n");
+
+    printf("\nTest Case 1: Scores = {50.0, 67.0, 80.0, 75.0, 24.0}, Size = 5\n");
+    float scores[] = {50.0, 67.0, 80.0, 75.0, 24.0};
+    float level_score = levelScore(scores, 5);
+    printf("Expected: ~0.74, Actual: %.2f\n", level_score);
+
+    //Testing pass/fail check
+    printf("\n--- Testing Pass/Fail Check ---\n");
+    printf("(Returns 1 for true and 0 for false)\n");
+    
+    printf("\nTest Case 1: Level = 3, Score = 70.0\n");
+    bool checkPass1 = isPass(3, 70.0);
+    printf("Expected: 1, Actual: %d\n", checkPass1);
+
+    printf("\nTest Case 2: Level = 5, Score = 40.0\n");
+    bool checkPass2 = isPass(5, 40.0);
+    printf("Expected: 0, Actual: %d\n", checkPass2);
+
     //Testing help function
     printf("\n--- Testing Help Functionality ---\n");
     int help_status = help();
@@ -59,7 +78,6 @@ int main (int argc, char *argv[]){
         printf("Help functionality failed!");
     }
     printf("Help functionality test successful!\n");
-
     return 0;
 }
 
