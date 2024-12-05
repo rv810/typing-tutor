@@ -10,3 +10,4 @@ float sentenceScore (float accuracy, float time);
 float levelScore (float scores[], int size);
 bool isPass(int level, float level_score);
 void progress_bar(int completed, int total);
+char *generateSentence(int level, int sentence);
