@@ -41,7 +41,8 @@ void displayLevelArt(int level) {
  * Return: None.
  */
 void drawHand(char h [FINGERS][MAX_KEYS_PER_FINGER]){
-    printf("      %c                       %c\n", h[2][5], h[5][5]);
+    printf("The below diagram shows you which fingers to use for designated keys.\n");
+	printf("      %c                       %c\n", h[2][5], h[5][5]);
     printf("   %c  %c   %c               %c   %c  %c\n", h[1][5], h[2][4], h[3][5], h[4][5], h[5][4], h[6][5]);
     printf("   %c  %c   %c               %c   %c  %c\n", h[1][4], h[2][3], h[3][4], h[4][4], h[5][3], h[6][4]);
     printf(" %c %c  %c   %c               %c   %c  %c %c\n", h[0][5], h[1][3], h[2][2], h[3][3], h[4][3], h[5][2], h[6][3], h[7][5]);
@@ -142,4 +143,5 @@ void startPlay(int argc, char *argv[]) {
         	}
 		}
     }
+	printf("Thank-you for playing! You have successfully completed all of the levels. You are now a KEYBOARD WARRIOR!\n");
 }
