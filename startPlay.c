@@ -132,12 +132,14 @@ void startPlay(int argc, char *argv[]) {
             current_level += 1;
         }
 
-        printf("\nWould you like to continue playing (Y to continue, any other key to exit)? ");
-        scanf(" %c", &continue_play);
+        if (current_level < LEVELS){
+			printf("\nWould you like to continue playing (Y to continue, any other key to exit)? ");
+        	scanf(" %c", &continue_play);
 		
-        if (continue_play != 'Y' && continue_play != 'y') {
-            printf("See you later!\n\n");
-            exit(0);
-        }
+        	if (continue_play != 'Y' && continue_play != 'y') {
+            	printf("See you later!\n\n");
+            	exit(0);
+        	}
+		}
     }
 }
