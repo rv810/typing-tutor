@@ -5,6 +5,7 @@
 #include "type.h"
 #define LEVELS 5
 #define MAX_KEYS_PER_FINGER 6
+#define FINGERS 8
 
 /* displayLevelArt
  *
@@ -39,7 +40,7 @@ void displayLevelArt(int level) {
  *
  * Return: None.
  */
-void drawHand(char h [8][MAX_KEYS_PER_FINGER]){
+void drawHand(char h [FINGERS][MAX_KEYS_PER_FINGER]){
     printf("      %c                       %c\n", h[2][5], h[5][5]);
     printf("   %c  %c   %c               %c   %c  %c\n", h[1][5], h[2][4], h[3][5], h[4][5], h[5][4], h[6][5]);
     printf("   %c  %c   %c               %c   %c  %c\n", h[1][4], h[2][3], h[3][4], h[4][4], h[5][3], h[6][4]);
@@ -59,6 +60,7 @@ void drawHand(char h [8][MAX_KEYS_PER_FINGER]){
     printf(" \\__________/          \\___________/\n");
 }
 
+
 /* startPlay
  *
  * Parameters:
@@ -75,31 +77,54 @@ void drawHand(char h [8][MAX_KEYS_PER_FINGER]){
 void startPlay(int argc, char *argv[]) {
     int current_level = 1;
     char continue_play;
-	char keys[8][MAX_KEYS_PER_FINGER];
+	char keys[FINGERS][MAX_KEYS_PER_FINGER] = {{' ',' ',' ',' ', ' ', ' '},{' ', ' ', ' ', ' ', ' ', ' '},{' ', ' ', ' ', ' ', ' ', ' '},{' ', ' ', ' ', ' ', ' ', ' '},{' ', ' ', ' ', ' ', ' ', ' '},{' ', ' ', ' ', ' ', ' ' , ' '},{' ', ' ', ' ', ' ', ' ', ' '},{' ', ' ', ' ', ' ', ' ', ' '}};
+
+
     if (argc == 2) {
         if (strcmp(argv[1], "--help") == 0) {
             int help_status = help();
             exit(0);
         }
     }
-	if (current_level == 1){
-		char keys[8][MAX_KEYS_PER_FINGER] = {{'A',' ',' ',' ', ' ', ' '},{'S', ' ', ' ', ' ', ' ', ' '},{'D', ' ', ' ', ' ', ' ', ' '},{' ', ' ', ' ', ' ', ' ', ' '},{'J', ' ', ' ', ' ', ' ', ' '},{'K', ' ', ' ', ' ', ' ' , ' '},{'L', ' ', ' ', ' ', ' ', ' '},{' ', ' ', ' ', ' ', ' ', ' '}};
-	}
-	else if (current_level == 2){
-		char keys[8][MAX_KEYS_PER_FINGER] = {{'A',' ',' ',' ', ' ', ' '},{'S', ' ', ' ', ' ', ' ', ' '},{'D', ' ', 'C', ' ', ' ', ' '},{'R', 'T', ' ', ' ', ' ', ' '},{'J', 'Y', 'U', ' ', ' ', ' '},{'K', ' ', ' ', ' ', ' ' , ' '},{'L', ' ', ' ', ' ', ' ', ' '},{' ', ' ', ' ', ' ', ' ', ' '}};
-	}
-	else if (current_level == 3){
-		char keys[8][MAX_KEYS_PER_FINGER] = {{'A','Q',' ',' ', ' ', ' '},{'S', 'W', ' ', ' ', ' ', ' '},{'D', 'E', ' ', ' ', ' ', ' '},{'R', 'T', ' ', ' ', ' ', ' '},{'J', 'Y', 'U', ' ', ' ', ' '},{'K', 'I', ' ', ' ', ' ' , ' '},{'L', 'O', ' ', ' ', ' ', ' '},{'P', ' ', ' ', ' ', ' ', ' '}};
-	}
-	else if (current_level == 4){
-        char keys[8][MAX_KEYS_PER_FINGER] = {{'A','Q','Z',' ', ' ', ' '},{'S', 'W', 'X', ' ', ' ', ' '},{'D', 'E', ' ', ' ', ' ', ' '},{'R', 'T', ' ', ' ', ' ', ' '},{'J', 'Y', 'U', 'N', 'M', ' '},{'K', 'I', ' ', ' ', ' ' , ' '},{'L', 'O', ' ', ' ', ' ', ' '},{'P', ' ', ' ', ' ', ' ', ' '}};
-	}
-	else{
-		char keys[8][MAX_KEYS_PER_FINGER] = {{'A','Q','Z',' ', ' ', ' '},{'S', 'W', 'X', ' ', ' ', ' '},{'D', 'E', 'C', ' ', ' ', ' '},{'R', 'T', 'V', 'B', 'F', 'G'},{'J', 'Y', 'U', 'N', 'M', 'H'},{'K', 'I', ' ', ' ', ' ' , ' '},{'L', 'O', ' ', ' ', ' ', ' '},{'P', ' ', ' ', ' ', ' ', ' '}};
-	}
 
 	while (current_level <= LEVELS) {
         displayLevelArt(current_level);
+        if (current_level == 1){
+            keys[0][0] = 'A';
+            keys[1][0] = 'S';
+            keys[2][0] = 'D';
+            keys[4][0] = 'J';
+            keys[5][0] = 'K';
+            keys[6][0] = 'L';
+	    }
+        else if (current_level == 2){
+            keys[3][0] = 'R';
+            keys[3][1] = 'T';
+            keys[4][1] = 'Y';
+            keys[4][2] = 'U';
+        }
+        else if (current_level == 3){
+            keys[0][1] = 'Q';
+            keys[1][1] = 'W'; 
+            keys[2][1] = 'E';
+            keys[5][1] = 'I';
+            keys[6][1] = 'O';
+            keys[7][0] = 'P';
+	    }
+        else if (current_level == 4){
+            keys[0][2] = 'Z';
+            keys[1][2] = 'X';
+            keys[4][3] = 'N';
+            keys[4][4] = 'M';
+        }
+        else{
+            keys[2][2] = 'C';
+            keys[3][2] = 'V';
+            keys[3][3] = 'B';
+            keys[3][4] = 'F';
+            keys[3][5] = 'G';
+            keys[4][5] = 'H';
+        }
         drawHand(keys);
 
 		if (level(current_level)) {
