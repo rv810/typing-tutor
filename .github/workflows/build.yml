@@ -14,7 +14,7 @@ jobs:
         run: make
 
       - name: build ctest
-        run: make ctest; gcov ctest-type_utilities.c; gcov ctest-startPlay.c; gcov ctest-test_main.c; gcov ctest-progBar.c
+        run: make ctest; gcov ctest-type_utilities.c; gcov ctest-test_main.c; gcov ctest-progBar.c
 
       - name: upload gcov reports and executable
         uses: actions/upload-artifact@v4
