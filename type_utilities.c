@@ -150,10 +150,6 @@ bool level (int level){
        	return false;
    	}
 
-        char key;
-        printf("\nClick any key to continue when you are ready: ");
-        getchar();
-
 	for (int i = 1; i <= SENTENCES; i++){
 		char *s = generateSentence(level, i);
 		time(&start);
