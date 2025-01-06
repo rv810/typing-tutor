@@ -36,16 +36,6 @@ Keyboard Warrior is a typing tutor designed for kids who are learning to type. I
 
 ---
 
-## **Team Members**
-| **Name**          | **Student ID** | **GitHub ID**         | **Role**               |
-|--------------------|----------------|------------------------|------------------------|
-| **Ronit Patel**    | 400501002      | RonitPatell           | The Dictionary Dev     |
-| **Yug Vashisth**   | 400510750      | yug-mac               | GUI Guy                |
-| **Prutha Patel**   | 400507458      | PruthaPatel-24        | Accuracy Assassin      |
-| **Resham Vani**    | 400500383      | rv810                 | Calc the Creator       |
-
----
-
 ## **Increment 1 Functionality**  
 The **goal for Increment 1** is to implement the general functionality of the typing tutor. This includes:
 1. **Sentence Generation**:
